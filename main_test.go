@@ -22,7 +22,3 @@ func TestDefaultUnit(t *testing.T) {
         assert.Equal(t, resp.City, "Raleigh")
 }
 
-func TestMap(t *testing.T) {
-	var q map[string][]string
-	fmt.Printf("\nblarg: %d\n", len(q["blarg"]))
-}
