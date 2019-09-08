@@ -33,4 +33,5 @@ type WeatherApp struct {
 	Apikey string `json:"apikey"`
 	Units []string `json:"units"`
 	Port int `json:"port"`
+	Conversions [][]string `json:"conversions"`
 }

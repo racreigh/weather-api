@@ -64,6 +64,9 @@ func (w WeatherApp) handleGetWeather(c echo.Context) error {
 }
 
 func (w WeatherApp) GetWeather(zipcode, city, unit string) (WeatherResponse, error) {
+	if unit != "" {
+		unit = convertUnit(unit, w.Conversions)
+	}
 	if unit != "" && !isValidUnit(unit, w.Units) {
 		return WeatherResponse{}, errors.New("invalid unit")
 	}
@@ -125,4 +128,15 @@ func isValidUnit(unit string, validUnits []string) bool {
 		}
 	}
 	return false
+}
+
+func convertUnit(unit string, conversions [][]string) string {
+	for _, pair := range conversions {
+		if len(pair) == 2 {
+			if unit == pair[0] {
+				return pair[1]
+			}
+		}
+	}
+	return unit
 }
