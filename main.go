@@ -56,6 +56,11 @@ func (w WeatherApp) handleGetWeather(c echo.Context) error {
 
 	wr, err := w.GetWeather(zipcode, city, unit)
 	if err != nil {
+		if err.Error() == "invalid unit" {
+			c.String(http.StatusBadRequest,
+			"Please enter a valid unit (celsius, fahrenheit, imperial, metric)")
+			return nil
+		}
 		c.NoContent(http.StatusInternalServerError)
 		return err
 	}
