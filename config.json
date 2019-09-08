@@ -1,0 +1,7 @@
+{
+        "url": "api.openweathermap.org/data/2.5/weather",
+        "apikey": "",
+        "units": ["imperial", "metric"],
+        "port": 5000,
+        "conversions": [["celsius","metric"],["fahrenheit", "imperial"]]
+}
