@@ -61,6 +61,10 @@ func (w WeatherApp) handleGetWeather(c echo.Context) error {
 			"Please enter a valid unit (celsius, fahrenheit, imperial, metric, kelvin)")
 			return nil
 		}
+		if err.Error() == "city/zip not found" {
+			c.String(http.StatusNotFound, "City/zip not found")
+			return nil
+		}
 		c.NoContent(http.StatusInternalServerError)
 		return err
 	}
@@ -92,7 +96,10 @@ func (w WeatherApp) GetWeather(zipcode, city, unit string) (WeatherResponse, err
 	if err != nil {
 		return WeatherResponse{}, err
 	}
-	
+	if resp.StatusCode == http.StatusNotFound {
+		return WeatherResponse{}, errors.New("city/zip not found")
+	}
+
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
