@@ -71,7 +71,7 @@ func (w WeatherApp) GetWeather(zipcode, city, unit string) (WeatherResponse, err
 		return WeatherResponse{}, errors.New("invalid unit")
 	}
 	var url strings.Builder
-	fmt.Fprintf(&url, "http://%s", w.BaseURL)
+	fmt.Fprintf(&url, "https://%s", w.BaseURL)
 	fmt.Fprintf(&url, "?APPID=%s", w.Apikey)
 	if unit != "" {
 		fmt.Fprintf(&url, "&units=%s", unit)
